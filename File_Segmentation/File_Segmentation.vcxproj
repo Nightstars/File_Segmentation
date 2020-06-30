@@ -151,8 +151,8 @@
     <ClCompile Include="File_Segmentation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\file_segmentation-master\file_segmentation-master\json.hpp" />
     <ClInclude Include="FileSegment.h" />
+    <ClInclude Include="json.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
