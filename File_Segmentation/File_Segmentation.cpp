@@ -7,7 +7,7 @@
 int main()
 {
     FileSegment fs;
-    // 分割data.zip文件，分为4片
+    // 分割test.exe文件，分为4片
     fs.segment("F:\\vsstudio\\File_Segmentation\\x64\\Debug\\test.exe", 4, "config.json");
     system("pause");
 }
