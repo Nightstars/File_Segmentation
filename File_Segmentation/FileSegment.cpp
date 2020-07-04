@@ -58,7 +58,7 @@ void FileSegment::segment(string file_name, int segment_num, string json_file)
     j[kSegmentFiles] = segment_files;
     json_output << j;
     json_output.close();
-    start();
+    //start();
 }
 void FileSegment::start()
 {
@@ -95,5 +95,51 @@ size_t FileSegment::file_size(ifstream& file) {
     file.seekg(0, std::ios::beg);
 
     return size;
+}
+void FileSegment::merge(string json_file) {
+    json j;
+
+    if (!exist(json_file)) {
+        cout << "json file [" << json_file << "] doesn't exist!" << endl;
+        return;
+    }
+
+    ifstream json_input(json_file);
+    json_input >> j;
+
+    // 源文件名
+    string src_file = j[kSourceFileName];
+
+    // 检查源文件是否已经存在
+    if (exist(src_file)) {
+        src_file += ".copy";
+    }
+    ofstream result(src_file);
+
+    // 文件分片数量
+    int segment_num = j[kSegmentFileNum];
+    // 分片文件名
+    vector<string> segment_files = j[kSegmentFiles];
+
+    // 检查文件分片是否齐全
+    for (auto it = segment_files.begin(); it != segment_files.end(); ++it) {
+        if (!exist(*it)) {
+            cout << "segment file [" << *it << "] doesn't exist!" << endl;
+            return;
+        }
+    }
+
+    // 合并文件
+    for (auto it = segment_files.begin(); it != segment_files.end(); it++) {
+        cout << "copy file [" << *it << "]" << endl;
+        ifstream seg_input(*it);
+        size_t seg_input_size = file_size(seg_input);
+        copy_file(seg_input, result, seg_input_size);
+        seg_input.close();
+    }
+
+    json_input.close();
+    result.close();
+    start();
 }
 

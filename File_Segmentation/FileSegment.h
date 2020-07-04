@@ -7,6 +7,7 @@ class FileSegment
 {
 public:
 	void segment(string file_name, int segment_num, string json_file = "config.json");
+	void merge(string json_file = "config.json");
 	void start();
 private:
 	bool exist(string name);

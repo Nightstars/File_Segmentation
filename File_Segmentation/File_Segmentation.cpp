@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include "FileSegment.h"
-
+#include <Windows.h>
 int main()
 {
     FileSegment fs;
     // 分割test.exe文件，分为4片
-    fs.segment("F:\\vsstudio\\File_Segmentation\\x64\\Debug\\test.exe", 4, "config.json");
+    fs.segment("F:\\vsstudio\\File_Segmentation\\x64\\Release\\test.exe", 4, "config.json");
+    Sleep(10000);
+    fs.merge();
     system("pause");
 }
 
